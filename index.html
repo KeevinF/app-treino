@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Treino</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div id="test-panel">
+        <input type="file" id="upload-foto" accept="image/*">
+        <button onclick="testarNomes()">Atualizar</button>
+
+        <input type="text" id="input-aluno" placeholder="Nome do Aluno">
+        <input type="text" id="input-personal" placeholder="Nome do Personal">
+        <button onclick="testarNomes()">Atualizar</button>
+    </div>
+
+    <header class="main-header">
+        <div class="header-content">
+            <span class="team-name" id="personal-name">Team <span id="personal-actual-name">Rocksteer</span></span>
+
+            <h1 id="welcome-message">Olá, <span id="student-name">Kevin</span>!</h1>
+        </div>
+
+        <div class="personal-silhouette">
+            <img id="img-personal" src="./img/silhueta-exemplo.png" alt="Personal Trainer">
+        </div>
+    </header>
+
+    <div id="calendar" class="calendar-horizontal">
+    </div>
+
+    <div class="grid-container">
+        <div class="card">
+            <div class="icon-red"><img src="./img/dubell.svg" alt="icon"></div>
+            <span>Treinos</span>
+        </div>
+        <div class="card">
+            <div class="icon-red"><img src="./img/cardio.svg" alt="icon"></div>
+            <span>Cardio</span>
+        </div>
+        <div class="card">
+            <div class="icon-red"><img src="./img/avaliação.svg" alt="icon"></div>
+            <span>Avaliações</span>
+        </div>
+        <div class="card">
+            <div class="icon-red"><img src="./img/dieta.svg" alt="icon"></div>
+            <span>Dieta</span>
+        </div>
+        <div class="card">
+            <div class="icon-red"><img src="./img/arquivos.svg" alt="icon"></div>
+            <span>Arquivos</span>
+        </div>
+        <div class="card">
+            <div class="icon-red"><img src="./img/faturas.svg" alt="icon"></div>
+            <span>Fatura</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

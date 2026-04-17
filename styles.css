@@ -1,0 +1,227 @@
+/* ============================================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: white;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   2. PAINEL DE TESTE (Pode remover no projeto final)
+   ============================================================ */
+#test-panel {
+  background: #111;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid #333;
+}
+
+#test-panel input {
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+#test-panel button {
+  background: #b30000;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   3. HEADER COM GRADIENTE E SILHUETA
+   ============================================================ */
+.main-header {
+  height: 250px;
+  width: 100%;
+  background: radial-gradient(circle at center, #b30000 0%, #000000 100%);
+  display: flex;
+  padding: 40px 20px 80px 20px;
+  position: relative;
+  /* REMOVEMOS o overflow: hidden para a imagem poder "sair" se for preciso */
+  overflow: visible;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.team-name {
+  /* Isso empurra o texto para a direita dentro do flex-column */
+  font-weight: 800;
+  letter-spacing: 2px;
+  align-self: flex-end;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+  text-align: right;
+  margin-top: -20px;
+}
+
+#welcome-message {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+/* A FOTO DO PERSONAL (SILHUETA) */
+.personal-silhouette {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 30px;
+  /* Diminuí para 80% para garantir que a cabeça não bata no topo */
+  height: 80%;
+  width: auto;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.personal-silhouette img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+    -webkit-mask-image: none;
+  mask-image: none;
+  filter: drop-shadow(-5px 5px 15px rgba (0, 0, 0, 0.6));
+}
+
+/* ============================================================
+   4. CALENDÁRIO (SOBREPOSTO NA DIVISÓRIA)
+   ============================================================ */
+.calendar-horizontal {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  max-width: 800px;
+  margin: -45px auto 20px auto;
+  /* Sobe o calendário para o meio do header */
+  position: relative;
+  z-index: 20;
+  /* Fica acima do header e da silhueta */
+}
+
+.day-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 15px 10px;
+  border-radius: 50px;
+  /* Estilo pílula do Figma */
+  min-width: 55px;
+  transition: 0.3s;
+  color: white;
+}
+
+.day-item.active {
+  background-color: #b30000;
+  box-shadow: 0 0 15px rgba(179, 0, 0, 0.6);
+}
+
+.day-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  opacity: 0.7;
+}
+
+.day-number {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   5. GRID DE CARDS (RESPONSIVO)
+   ============================================================ */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Mobile: 2 colunas */
+  gap: 15px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: #1a1a1a;
+  border-radius: 15px;
+  padding: 30px 25px;
+  /* Cards encorpados */
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background-color: #252525;
+  transform: translateY(-5px);
+}
+
+.icon-red {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+}
+
+.icon-red img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* ============================================================
+   6. MEDIA QUERIES (ADAPTAÇÃO PC / TABLET)
+   ============================================================ */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    /* Tablet: 3 colunas */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    /* Desktop: 4 colunas */
+  }
+
+  #welcome-message {
+    font-size: 3rem;
+    /* Nome maior no PC */
+  }
+}
