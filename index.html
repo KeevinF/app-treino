@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Treino</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>App Treino - Premium</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/switch.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>
 
-    <div id="test-panel">
-        <input type="file" id="upload-foto" accept="image/*">
-        <button onclick="testarNomes()">Atualizar</button>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch">
+            <input type="checkbox" id="checkbox" onclick="toggleTheme()">
+            <div class="slider">
+                <span class="icon-sun">☀️</span>
+                <span class="icon-moon">🌙</span>
+            </div>
+        </label>
+    </div>
 
-        <input type="text" id="input-aluno" placeholder="Nome do Aluno">
-        <input type="text" id="input-personal" placeholder="Nome do Personal">
-        <button onclick="testarNomes()">Atualizar</button>
+    <div id="test-panel">
+        <div class="panel-group">
+            <input type="file" id="upload-foto" accept="image/*">
+            <button onclick="testarNomes()">Atualizar Foto</button>
+        </div>
+
+        <div class="panel-group">
+            <input type="text" id="input-aluno" placeholder="Nome do Aluno">
+            <input type="text" id="input-personal" placeholder="Nome do Personal">
+            <button onclick="testarNomes()">Atualizar Nomes</button>
+        </div>
     </div>
 
     <header class="main-header">
         <div class="header-content">
-            <span class="team-name" id="personal-name">Team <span id="personal-actual-name">Rocksteer</span></span>
-
-            <h1 id="welcome-message">Olá, <span id="student-name">Kevin</span>!</h1>
+            <span class="team-name" id="personal-name">
+                Team&nbsp;<span id="personal-actual-name">Rocksteer</span>
+            </span>
+            <h1 id="welcome-message">Olá, <span id="student-name"> Kevin</span>!</h1>
         </div>
 
         <div class="personal-silhouette">
@@ -31,10 +52,9 @@
         </div>
     </header>
 
-    <div id="calendar" class="calendar-horizontal">
-    </div>
+    <div id="calendar" class="calendar-horizontal"></div>
 
-    <div class="grid-container">
+    <main class="grid-container">
         <div class="card">
             <div class="icon-red"><img src="./img/dubell.svg" alt="icon"></div>
             <span>Treinos</span>
@@ -59,9 +79,29 @@
             <div class="icon-red"><img src="./img/faturas.svg" alt="icon"></div>
             <span>Fatura</span>
         </div>
-    </div>
+    </main>
 
-    <script src="script.js"></script>
+    <footer class="bottom-nav">
+        <div class="nav-item active">
+            <div class="nav-icon"><img src="./img/home.svg" alt="Início"></div>
+            <span>Início</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon"><img src="./img/instagram.svg" alt="Instagram"></div>
+            <span>Instagram</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon"><img src="./img/whatsapp.svg" alt="WhatsApp"></div>
+            <span>WhatsApp</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon"><img src="./img/menu.svg" alt="Menu"></div>
+            <span>Menu</span>
+        </div>
+    </footer>
+
+    <script src="./js/calendar.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

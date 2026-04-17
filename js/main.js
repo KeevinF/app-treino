@@ -1,32 +1,3 @@
-function generateCalendar() {
-    const calendarElement = document.getElementById('calendar');
-    const now = new Date();
-    const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-
-    calendarElement.innerHTML = '';
-
-    // Achar o início da semana (Domingo)
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-
-    for (let i = 0; i < 7; i++) {
-        const dayDate = new Date(startOfWeek);
-        dayDate.setDate(startOfWeek.getDate() + i);
-
-        const dayName = daysOfWeek[dayDate.getDay()];
-        const dayNumber = dayDate.getDate();
-        const isActive = dayDate.toDateString() === now.toDateString() ? 'active' : '';
-
-        const dayHTML = `
-            <div class="day-item ${isActive}">
-                <span class="day-label">${dayName}</span>
-                <span class="day-number">${dayNumber}</span>
-            </div>
-        `;
-        calendarElement.innerHTML += dayHTML;
-    }
-}
-
 function testarNomes() {
     const nomeAluno = document.getElementById('input-aluno').value;
     const nomePersonal = document.getElementById('input-personal').value;
@@ -54,3 +25,24 @@ function testarNomes() {
 window.onload = () => {
     generateCalendar();
 };
+
+function toggleTheme() {
+    const html = document.documentElement; // Pega a tag <html>
+    const currentTheme = html.getAttribute('data-theme');
+
+    // Se estiver claro, vira escuro. Se estiver escuro, vira claro.
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    html.setAttribute('data-theme', newTheme);
+
+    // Opcional: Salva a escolha para quando você der F5
+    localStorage.setItem('theme', newTheme);
+
+    console.log("Tema alterado para: " + newTheme);
+}
+
+// Isso aqui garante que o tema salvo seja aplicado ao abrir o site
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+});
