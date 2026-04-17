@@ -22,7 +22,12 @@ JavaScript (Vanilla): Lógica para manipulação do DOM e geração dinâmica de
 <img width="1920" height="1080" alt="app-treino" src="https://github.com/user-attachments/assets/17ce424a-45a4-4749-bc03-6d6818940de3" />
 
 
+👥 Contribuição (Equipe)
+Este projeto está sendo desenvolvido em colaboração:
 
+Front-end: Kevin Fernando - Engenharia de Software (Unifatecie).
+
+Back-end (Em desenvolvimento): Fellipe Matheus - Ciência da computação (Uninter)
 
 📖 Como Executar
 Clone o repositório:
@@ -30,6 +35,10 @@ Clone o repositório:
 Bash
 git clone https://github.com/seu-usuario/app-treino.git
 Abra o arquivo index.html em qualquer navegador moderno.
+
+ou acesse o link do gitpages abaixo 
+https://keevinf.github.io/app-treino/
+
 
 📈 Próximos Passos
 [ ] Implementação do Menu Inferior (Tab Bar).
