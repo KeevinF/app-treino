@@ -1,7 +1,9 @@
 from flask import Flask, render_template
+from flask_livereload import LiveReload
 
 app = Flask (__name__)
 app.secret_key = 'dev'
+LiveReload(app)
 
 @app.route('/')
 def index():

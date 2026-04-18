@@ -3,22 +3,33 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 1050px;
     margin: 0 auto;
 }
 
 
 .card {
-    cursor:pointer;
+    cursor: pointer;
     background-color: var(--card-bg);
     border-radius: 16px;
-    padding: 25px;
+    padding: 25px 40px;
+    text-align: center;
+    /* Aumentei o padding lateral para 40px */
     display: flex;
     align-items: center;
-    gap: 15px;
+    margin-left: 10px;
+    /* justify-content: space-between; */
+    /* Alinha o conteúdo no início (esquerda) */
+    gap: 20px;
+    /* Aumentei um pouco o espaço entre ícone e texto */
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: 0.3s;
+    font-size: 32px;
+    width: 100%;
+    /* Garante que o botão ocupe o espaço do grid */
+    text-align: center;
+    /* Garante que o texto do botão respeite a esquerda */
 }
 
 .card:hover {
@@ -27,5 +38,11 @@
 }
 
 .icon-red img {
-    width: 35px;
+    width: 60px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+    
+
+
 }

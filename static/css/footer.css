@@ -5,14 +5,14 @@
     transform: translateX(-50%);
     align-items: center;
     width: 80%;
-    height: 75px;
+    height: 80px;
     background-color: var(--nav-bg);
     backdrop-filter: blur(10px);
     border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: space-around;
     z-index: 1000;
-    max-width: 600px;
+    max-width: 900px;
 }
 
 .nav-item {
