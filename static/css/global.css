@@ -58,3 +58,35 @@ body {
     cursor: pointer;
     font-weight: bold;
 }
+
+.input-hidden {
+    display: none !important;
+}
+
+/ Estiliza o Label para ele parecer um botão real /
+.custom-file-upload {
+    background-color: #f0f0f0; / Cor de fundo do botão /
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #e0e0e0;
+}
+
+/ Estilo do botão de atualizar que fica ao lado */
+.btn-atualizar {
+    background-color: #b30000;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
