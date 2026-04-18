@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/css/login.css">
+    <link rel="stylesheet" href="./static/css/switch.css">
+    <title>App Treino-premium - Login</title>
+</head>
+
+<body>
+    
+    <div class="login-container">
+
+        <div class="login-visual">
+            <img src="./static/img/login.jpeg" alt="Login-Image">
+            <div class="visual-footer">
+                <!-- <p>Use o app também no seu celular</p> -->
+            </div>
+        </div>
+
+        <div class="login-form-section">
+            <div class="form-wrapper">
+                <div class="logo">
+                    <img src="./static/img/raio.png" alt="Logo">
+                    <h2>Aluno</h2>
+                </div>
+
+                <form action="/login" method="POST">
+                    <input type="email" name="email" placeholder="E-mail" required>
+
+                    <div class="password-group">
+                        <input type="password" name="password" placeholder="Senha" required>
+                    </div>
+
+                    <a href="#" class="forgot-password">Esqueceu a senha? Clique aqui</a>
+
+                    <button type="submit" class="btn-primary">Entrar</button>
+                    <button type="button" class="btn-secondary">Cadastrar</button>
+                </form>
+
+                <p class="terms">Termos de Uso</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
