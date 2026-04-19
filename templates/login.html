@@ -27,16 +27,16 @@
                     <h2>Aluno</h2>
                 </div>
 
-                <form action="/login" method="POST">
-                    <input type="email" name="email" placeholder="E-mail" required>
+                <form action="/logar" method="POST">
+                    <input type="email" name="email" placeholder="E-mail" >
 
                     <div class="password-group">
-                        <input type="password" name="password" placeholder="Senha" required>
+                        <input type="password" name="password" placeholder="Senha" >
                     </div>
 
                     <a href="#" class="forgot-password">Esqueceu a senha? Clique aqui</a>
 
-                    <button type="submit" class="btn-primary">Entrar</button>
+                    <button type="button" onclick="window.location.href='{{ url_for('index') }}'" class="btn-primary">Entrar</button>
                     <button type="button" class="btn-secondary">Cadastrar</button>
                 </form>
 
