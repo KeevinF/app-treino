@@ -8,9 +8,102 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/switch.css') }}">
+
+    <style id="personalizedStyles"></style>
+
     {% block extra_css %}{% endblock %}
 
     {% block protection_script %}{% endblock %}
+
+    <script>
+        // Carregar e aplicar personalização do personal ao abrir a página
+        async function applyPersonalization() {
+            try {
+                const response = await fetch('/api/personalization');
+                const allPersonalization = await response.json();
+
+                // Tentar encontrar dados salvos localmente
+                const localData = localStorage.getItem('personalData');
+                if (localData) {
+                    const personalization = JSON.parse(localData);
+
+                    // Aplicar nome do personal
+                    if (personalization.personalName) {
+                        document.getElementById('personal-actual-name').textContent = personalization.personalName;
+                    }
+
+                    // Aplicar nome do aluno (se houver)
+                    if (personalization.studentName) {
+                        const studentName = document.getElementById('student-name');
+                        if (studentName) {
+                            studentName.textContent = personalization.studentName;
+                        }
+                    }
+
+                    // Aplicar foto do personal
+                    if (personalization.photoData) {
+                        const personalImg = document.getElementById('img-personal');
+                        if (personalImg) {
+                            personalImg.src = personalization.photoData;
+                        }
+                    }
+
+                    // Aplicar cores personalizadas
+                    if (personalization.primaryColor || personalization.secondaryColor) {
+                        const primary = personalization.primaryColor || '#00d4ff';
+                        const secondary = personalization.secondaryColor || '#0099cc';
+
+                        const style = document.getElementById('personalizedStyles');
+                        style.innerHTML = `
+                            :root {
+                                --primary-color: ${primary};
+                                --secondary-color: ${secondary};
+                            }
+                            
+                            .top-nav {
+                                background: linear-gradient(135deg, ${primary} 0%, ${secondary} 100%);
+                            }
+                            
+                            .slider {
+                                background-color: ${primary} !important;
+                            }
+                            
+                            input:focus {
+                                border-color: ${primary} !important;
+                            }
+                            
+                            .btn-logout:hover {
+                                background-color: rgba(255, 255, 255, 0.1);
+                            }
+                        `;
+                    }
+                }
+
+                // Se for personal, mostrar botão de painel
+                const isPersonal = localStorage.getItem('user_type') === 'personal';
+                if (isPersonal) {
+                    const logoutBtn = document.getElementById('logout-btn');
+                    if (logoutBtn) {
+                        // Inserir botão de painel antes do botão de logout
+                        const panelBtn = document.createElement('button');
+                        panelBtn.type = 'button';
+                        panelBtn.className = 'btn-logout';
+                        panelBtn.textContent = '⚙️ Painel';
+                        panelBtn.style.marginRight = '10px';
+                        panelBtn.onclick = () => {
+                            window.location.href = '/personal';
+                        };
+                        logoutBtn.parentElement.insertBefore(panelBtn, logoutBtn);
+                    }
+                }
+            } catch (error) {
+                console.log('Personalization não disponível ou erro ao carregar');
+            }
+        }
+
+        // Executar quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', applyPersonalization);
+    </script>
 </head>
 
 <body>

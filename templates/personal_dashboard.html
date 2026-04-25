@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+
+{% block title %}Painel do Personal - App Treino{% endblock %}
+
+{% block protection_script %}
+<script>
+    if (!localStorage.getItem('access_token') || localStorage.getItem('user_type') !== 'personal') {
+        window.location.href = '/';
+    }
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .personal-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .personalization-section {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    html[data-theme="dark"] .personalization-section {
+        background: #2a2a2a;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    html[data-theme="dark"] .form-group label {
+        color: #fff;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="file"],
+    .form-group input[type="color"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    html[data-theme="dark"] .form-group input[type="text"],
+    html[data-theme="dark"] .form-group input[type="file"],
+    html[data-theme="dark"] .form-group input[type="color"] {
+        background: #333;
+        border-color: #444;
+        color: #fff;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="file"]:focus,
+    .form-group input[type="color"]:focus {
+        border-color: #00d4ff;
+        outline: none;
+    }
+
+    .color-picker-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .color-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .color-input-wrapper input[type="color"] {
+        width: 60px;
+        height: 60px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .color-display {
+        flex-grow: 1;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        color: white;
+        text-align: center;
+    }
+
+    .preview-box {
+        margin-top: 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        border-radius: 8px;
+        color: white;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .photo-preview {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .photo-preview img {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 8px;
+        border: 2px solid #00d4ff;
+    }
+
+    .btn-save {
+        width: 100%;
+        padding: 15px;
+        background-color: #00d4ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-save:hover {
+        background-color: #00b8d4;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .success-message {
+        background-color: #4caf50;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+    }
+
+    .success-message.show {
+        display: block;
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        color: #00d4ff;
+        margin-bottom: 30px;
+    }
+
+    html[data-theme="dark"] h1 {
+        color: #00d4ff;
+    }
+
+    :root {
+        --primary-color: #00d4ff;
+        --secondary-color: #0099cc;
+        --text-primary: #333;
+        --bg-secondary: #f5f5f5;
+    }
+
+    html[data-theme="dark"] {
+        --primary-color: #00d4ff;
+        --secondary-color: #0099cc;
+        --text-primary: #fff;
+        --bg-secondary: #2a2a2a;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="personal-container">
+    <h1>Painel de Personalização</h1>
+
+    <div class="success-message" id="successMessage">
+        ✓ Personalização salva com sucesso!
+    </div>
+
+    <div class="personalization-section">
+        <h2>Foto do Personal</h2>
+        <div class="form-group">
+            <label for="personalPhoto">Fazer Upload da Foto (PNG)</label>
+            <input type="file" id="personalPhoto" accept=".png" />
+            <div class="photo-preview" id="photoPreview"></div>
+        </div>
+    </div>
+
+    <div class="personalization-section">
+        <h2>Informações</h2>
+        <div class="form-group">
+            <label for="personalName">Nome do Personal</label>
+            <input type="text" id="personalName" placeholder="Digite seu nome" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">Nome do Aluno (a ser exibido)</label>
+            <input type="text" id="studentName" placeholder="Nome do aluno" />
+        </div>
+    </div>
+
+    <div class="personalization-section">
+        <h2>Paleta de Cores</h2>
+        <div class="color-picker-group">
+            <div class="form-group">
+                <label for="primaryColor">Cor Primária</label>
+                <div class="color-input-wrapper">
+                    <input type="color" id="primaryColor" value="#00d4ff" />
+                    <span id="primaryColorHex">#00d4ff</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="secondaryColor">Cor Secundária</label>
+                <div class="color-input-wrapper">
+                    <input type="color" id="secondaryColor" value="#0099cc" />
+                    <span id="secondaryColorHex">#0099cc</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-box" id="previewBox">
+            Prévia das suas cores
+        </div>
+    </div>
+
+    <button class="btn-save" onclick="savePersonalization()">Salvar Personalização</button>
+</div>
+
+<script>
+    // Carregar personalização existente
+    async function loadPersonalization() {
+        try {
+            const response = await fetch('/api/personalization');
+            const data = await response.json();
+            const token = localStorage.getItem('access_token');
+
+            if (data && data[token]) {
+                const personalization = data[token];
+
+                if (personalization.personalName) {
+                    document.getElementById('personalName').value = personalization.personalName;
+                }
+                if (personalization.studentName) {
+                    document.getElementById('studentName').value = personalization.studentName;
+                }
+                if (personalization.primaryColor) {
+                    document.getElementById('primaryColor').value = personalization.primaryColor;
+                    document.getElementById('primaryColorHex').textContent = personalization.primaryColor;
+                }
+                if (personalization.secondaryColor) {
+                    document.getElementById('secondaryColor').value = personalization.secondaryColor;
+                    document.getElementById('secondaryColorHex').textContent = personalization.secondaryColor;
+                }
+                if (personalization.photoData) {
+                    showPhotoPreview(personalization.photoData);
+                }
+
+                updatePreview();
+            }
+        } catch (error) {
+            console.error('Erro ao carregar personalização:', error);
+        }
+    }
+
+    // Atualizar prévia de cores
+    function updatePreview() {
+        const primary = document.getElementById('primaryColor').value;
+        const secondary = document.getElementById('secondaryColor').value;
+        const preview = document.getElementById('previewBox');
+        preview.style.background = `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`;
+    }
+
+    // Atualizar hex quando mudar cor
+    document.getElementById('primaryColor').addEventListener('change', (e) => {
+        document.getElementById('primaryColorHex').textContent = e.target.value;
+        updatePreview();
+    });
+
+    document.getElementById('secondaryColor').addEventListener('change', (e) => {
+        document.getElementById('secondaryColorHex').textContent = e.target.value;
+        updatePreview();
+    });
+
+    // Upload de foto
+    document.getElementById('personalPhoto').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                showPhotoPreview(event.target.result);
+                // Salvar em memória para depois enviar
+                window.photoData = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function showPhotoPreview(photoData) {
+        const preview = document.getElementById('photoPreview');
+        preview.innerHTML = `<img src="${photoData}" alt="Preview" />`;
+    }
+
+    // Salvar personalização
+    async function savePersonalization() {
+        const token = localStorage.getItem('access_token');
+        const personalName = document.getElementById('personalName').value;
+        const studentName = document.getElementById('studentName').value;
+        const primaryColor = document.getElementById('primaryColor').value;
+        const secondaryColor = document.getElementById('secondaryColor').value;
+
+        if (!personalName || !studentName) {
+            alert('Por favor, preencha o nome do personal e do aluno');
+            return;
+        }
+
+        const data = {
+            personalName,
+            studentName,
+            primaryColor,
+            secondaryColor,
+            photoData: window.photoData || null
+        };
+
+        try {
+            const response = await fetch('/api/personalization', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                // Mostrar mensagem de sucesso
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.add('show');
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 3000);
+
+                // Salvar também no localStorage para uso imediato
+                localStorage.setItem('personalData', JSON.stringify(data));
+            } else {
+                alert('Erro ao salvar personalização');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao conectar com o servidor');
+        }
+    }
+
+    // Carregar personalização ao abrir a página
+    window.addEventListener('DOMContentLoaded', loadPersonalization);
+</script>
+{% endblock %}

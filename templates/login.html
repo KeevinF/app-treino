@@ -6,7 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/css/login.css">
     <link rel="stylesheet" href="./static/css/switch.css">
-    <title>App Treino-premium - Login</title>
+    <style>
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #00d4ff;
+            border-bottom-color: #00d4ff;
+        }
+
+        .tab-btn:hover {
+            color: #00d4ff;
+        }
+
+        html[data-theme="dark"] .tab-btn {
+            color: #666;
+        }
+
+        html[data-theme="dark"] .tab-btn.active {
+            color: #00d4ff;
+            border-bottom-color: #00d4ff;
+        }
+
+        html[data-theme="dark"] .form-wrapper {
+            border-color: #444;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,7 +71,17 @@
             <div class="form-wrapper">
                 <div class="logo">
                     <img src="./static/img/raio.png" alt="Logo">
-                    <h2>Aluno</h2>
+                    <h2 id="formTitle">Aluno</h2>
+                </div>
+
+                <!-- Abas de seleção -->
+                <div style="display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #e0e0e0;">
+                    <button type="button" class="tab-btn active" data-tab="aluno" onclick="switchTab('aluno')">
+                        👤 Aluno
+                    </button>
+                    <button type="button" class="tab-btn" data-tab="personal" onclick="switchTab('personal')">
+                        🏋️ Personal
+                    </button>
                 </div>
 
                 <form id="login-form">
@@ -61,15 +105,11 @@
 
     <script>
         function toggleTheme() {
-            const html = document.documentElement; // Pega a tag <html>
+            const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
-
-            // Se estiver claro, vira escuro. Se estiver escuro, vira claro.
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
             html.setAttribute('data-theme', newTheme);
-
-            // Salva a escolha para quando você der F5
             localStorage.setItem('theme', newTheme);
 
             console.log("Tema alterado para: " + newTheme);
@@ -99,11 +139,30 @@
             });
         }
 
+        function switchTab(tab) {
+            // Atualizar botões ativos
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+
+            // Atualizar título
+            const title = document.getElementById('formTitle');
+            if (tab === 'personal') {
+                title.textContent = 'Personal';
+            } else {
+                title.textContent = 'Aluno';
+            }
+            // Limpar campos
+            document.getElementById('login-form').reset();
+        }
+
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const email = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const userType = document.querySelector('.tab-btn.active').getAttribute('data-tab');
 
             try {
                 const response = await fetch('/logar', {
@@ -111,19 +170,21 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ username: email, password })
+                    body: JSON.stringify({ username: email, password, user_type: userType })
                 });
 
                 const data = await response.json();
 
                 if (response.ok) {
                     localStorage.setItem('access_token', data.access_token);
-                    // Testa se o token é válido antes de redirecionar
-                    const testResponse = await authFetch('/index');
-                    if (testResponse.ok) {
-                        window.location.href = '/index';
+                    localStorage.setItem('user_type', data.user_type);
+
+                    // Se for personal, ir para o painel de personalização
+                    if (data.user_type === 'personal') {
+                        window.location.href = '/personal';
                     } else {
-                        alert('Token inválido');
+                        // Se for aluno, ir para o index normal
+                        window.location.href = '/index';
                     }
                 } else {
                     alert(data.msg);
