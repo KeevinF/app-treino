@@ -32,7 +32,7 @@ def logar():
     user_type = request.json.get("user_type", "aluno")  # personal ou aluno
     
     # Dados de teste
-    personal_credentials = {"personal@teste.com": "teste"}
+    personal_credentials = {"personal@personal.com": "personal"}
     aluno_credentials = {"teste@teste.com": "teste"}
     
     if user_type == "personal":
@@ -47,9 +47,7 @@ def logar():
         return jsonify(access_token=access_token, user_type="aluno")
 
 @app.route('/personal', methods=['GET'])
-@jwt_required()
 def personal_dashboard():
-    identity = get_jwt_identity()
     return render_template('personal_dashboard.html')
 
 @app.route('/api/personalization', methods=['GET'])
