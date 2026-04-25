@@ -46,3 +46,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 });
+
+function toggleMenu() {
+    document.getElementById('circularMenu').classList.toggle('active');
+}

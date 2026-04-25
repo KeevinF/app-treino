@@ -1,15 +1,18 @@
 .theme-switch-wrapper {
-    position: fixed;
-    top: 10px;
-    right: 15px;
+    position: static;
+    top: 20px;
+    right: 60px;
     /* Vamos jogar para a direita para não bater nos botões */
-    z-index: 10005;
+    z-index: 800;
     display: flex;
     align-items: center;
+    
+    margin-right: 20px;
 }
 
 .theme-switch input {
     display: none !important;
+    
     /* Esconde o quadradinho do checkbox */
 }
 
@@ -53,23 +56,3 @@ input:checked+.slider {
 
 /* Botao para logout */
 
-.logout-button {
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-right: 15px;
-    transition: background-color 0.3s ease;
-    font-size: 14px;
-}
-
-.logout-button:hover {
-    background-color: #cc0000;
-}
-
-.logout-button:active {
-    transform: scale(0.95);
-}

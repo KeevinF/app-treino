@@ -1,0 +1,94 @@
+/* Container posicionado no lado esquerdo, abaixo da saudação */
+.circular-menu {
+    position: absolute;
+    top: 140px;
+    /* Ajuste para ficar logo abaixo do "Olá, Kevin!" */
+    left: 40px;
+    /* Distância da borda esquerda */
+    width: 80px;
+    height: 80px;
+    z-index: 1000;
+}
+
+/* Botão Principal (+) */
+.floating-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #00d4ff;
+    /* Seu Ciano Premium */
+    color: white;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Itens que saem do menu */
+.menu-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #00d4ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.menu-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+/* --- ANIMAÇÃO DE ABERTURA (EFEITO LEQUE PARA A DIREITA) --- */
+
+.circular-menu.active .menu-item {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Item 1 - Move totalmente para baixo */
+.circular-menu.active .menu-item:nth-child(2) {
+    transform: translateY(120px);
+}
+
+/* Item 2 - Move para baixo e para a DIREITA (diagonal) */
+.circular-menu.active .menu-item:nth-child(3) {
+    transform: translate(100px, 100px);
+}
+
+/* Item 3 - Move totalmente para a DIREITA */
+.circular-menu.active .menu-item:nth-child(4) {
+    transform: translateX(120px);
+}
+
+/* Estilo do botão ao abrir */
+.circular-menu.active .floating-btn {
+    transform: rotate(45deg);
+    background-color: #ff4444;
+    /* Vermelho para fechar */
+}
+
+/* Feedback visual no hover */
+.menu-item:hover {
+    background-color: #f0f9ff;
+    transform: scale(1.1) !important;
+    /* Pequeno aumento ao passar o mouse */
+}

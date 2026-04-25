@@ -1,31 +1,31 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
     padding: 20px;
-    max-width: 1050px;
+    width: 70%;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 
 .card {
     cursor: pointer;
+    font-size: 24px;
     background-color: var(--card-bg);
     border-radius: 16px;
-    padding: 25px 40px;
+    padding: 20px;
     text-align: center;
     /* Aumentei o padding lateral para 40px */
     display: flex;
     align-items: center;
     margin-left: 10px;
-    /* justify-content: space-between; */
     /* Alinha o conteúdo no início (esquerda) */
     gap: 20px;
     /* Aumentei um pouco o espaço entre ícone e texto */
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: 0.3s;
-    font-size: 32px;
     width: 100%;
     /* Garante que o botão ocupe o espaço do grid */
     text-align: center;
@@ -38,11 +38,30 @@
 }
 
 .icon-red img {
-    width: 60px;
+    color: black;
+    margin: 20px;
+    background-size: 30px;
+    padding: 10px;
+    width: 100px;
     height: auto;
     display: block;
     flex-shrink: 0;
-    
 
+
+
+}
+span {
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+@media (max-width: 400px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        /* Muda para uma única coluna */
+        width: 90%;
+        /* Dá respiro nas bordas */
+        margin: 0 auto;
+    }
 
 }

@@ -18,7 +18,7 @@
     flex: 1.2;
     /* Lado da imagem levemente maior, como no print */
     position: relative;
-    background-color: #660000;
+    background-color: #1e293b;
 }
 
 .login-visual img {
@@ -64,7 +64,7 @@
 }
 
 .logo h2 {
-    color: #ff0000;
+    color: #00d4ff;
     margin-bottom: 30px;
 }
 
@@ -80,7 +80,7 @@ input {
 }
 
 input:focus {
-    border-color: #ff0000;
+    border-color: #00d4ff;
 }
 
 .forgot-password {
@@ -104,19 +104,18 @@ button {
 }
 
 .btn-primary {
-    background-color: #ff0000;
+    background-color: #00d4ff;
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #cc0000;
+    background-color: #00d4ff;
 }
 
 .btn-secondary {
     background-color: transparent;
-    color: #ff0000;
-    border: 1px solid #ff1100;
-}
+    color: #00d4ff;
+    border: 1px solid #00d4ff; 
 
 .btn-secondary:hover {
     background-color: #f0f8ff;

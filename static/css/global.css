@@ -1,21 +1,21 @@
 :root {
     --bg-color: #030303ea;
-    --card-bg: #1a1a1a;
+    --card-bg: #0c0c0cf6;
     --text-color: #ffffff;
-    --primary-red: #b30000;
-    --border-color: #333333;
-    --nav-bg: rgba(0, 0, 0, 0.9);
-    --header-gradient: linear-gradient(180deg, #660000 0%, #b30000 100%);
+    --primary-red: #d0d4d4;
+    --border-color: #edf6f9;
+    --nav-bg: #000000e6;
+    --header-gradient: linear-gradient(180deg, #006d77 0%, #edf6f9 100%);
 }
 
 [data-theme="light"] {
     --bg-color: #f4f7f6;
-    --card-bg: #ffffff;
+    --card-bg: #b7babba2;
     --text-color: #1a1a1a;
-    --primary-red: #d32f2f;
+    --primary-red: #83c5be;
     --border-color: rgba(0, 0, 0, 0.05);
     --nav-bg: rgba(255, 255, 255, 0.9);
-    --header-gradient: linear-gradient(180deg, #800000 0%, #b30000 100%);
+    --header-gradient: linear-gradient(180deg, #006d77 0%, #edf6f9 100%);
 }
 
 * {
@@ -65,7 +65,7 @@ body {
 
 / Estiliza o Label para ele parecer um botão real /
 .custom-file-upload {
-    background-color: #f0f0f0; / Cor de fundo do botão /
+    background-color: #f0f0f0; /* Cor de fundo do botão */
     color: #333;
     padding: 8px 12px;
     border-radius: 4px;
@@ -87,6 +87,70 @@ body {
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+@media (max-width: 480px) {
+    .panel-group {
+        flex-direction: column;
+        /* Empilha os elementos */
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .panel-group input,
+    .panel-group button,
+    .custom-file-upload {
+        width: 100% !important;
+        /* Força largura total */
+        font-size: 14px;
+        height: 40px;
+        /* Melhora o clique no celular */
+    }
+}
+
+
+
+/* Container que segura os dois */
+.top-nav {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Fundo sutil para os botões aparecerem */
+    backdrop-filter: blur(5px);
+    /* Efeito de vidro fosco (Premium) */
+    padding: 10px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    /* Nome na esquerda, botões na direita */
+    align-items: center;
+}
+
+
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Garante que o botão de sair não fique gigante */
+.btn-logout {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 12px;
     cursor: pointer;
     font-weight: bold;
 }
