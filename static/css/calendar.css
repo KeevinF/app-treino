@@ -5,7 +5,9 @@
     max-width: 600px;
     margin: -40px auto 20px auto;
     position: relative;
-    z-index: 20;
+    z-index: 100;
+    overflow: visible;
+    flex-wrap: wrap;
 }
 
 .day-item {
@@ -19,6 +21,7 @@
     border: 1px solid var(--border-color);
     margin-top: -20px;
     filter: drop-shadow();
+    flex-shrink: 0;
 }
 
 .day-item span {
@@ -32,4 +35,32 @@
 
 .day-item.active span {
     color: #ffffff !important;
+}
+
+@media (max-width: 768px) {
+    .calendar-horizontal {
+        max-width: 100%;
+        padding: 15px;
+        margin: -20px auto 15px auto;
+        z-index: 100;
+    }
+
+    .day-item {
+        padding: 20px 12px;
+        min-width: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-horizontal {
+        max-width: 100%;
+        padding: 10px auto 10px auto;
+        z-index: 100 margin: -20px auto 10px auto;
+    }
+
+    .day-item {
+        padding: 15px 10px;
+        min-width: 22px;
+        font-size: 0.85rem;
+    }
 }

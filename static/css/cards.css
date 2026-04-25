@@ -1,10 +1,10 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 15px;
     padding: 20px;
-    width: 70%;
-    max-width: 800px;
+    width: 90%;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -56,13 +56,50 @@ span {
     font-weight: bold;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     .grid-container {
-        grid-template-columns: 1fr;
-        /* Muda para uma única coluna */
-        width: 90%;
-        /* Dá respiro nas bordas */
-        margin: 0 auto;
+        grid-template-columns: repeat(2, 1fr);
+        width: 95%;
+        padding: 15px;
+        gap: 12px;
     }
 
+    .card {
+        padding: 15px;
+        gap: 15px;
+        margin-left: 5px;
+    }
+
+    .icon-red img {
+        width: 80px;
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        width: 98%;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .card {
+        flex-direction: row;
+        padding: 12px;
+        gap: 12px;
+        margin-left: 0;
+    }
+
+    .icon-red img {
+        width: 60px;
+        margin: 10px;
+    }
+
+    span {
+        font-size: 0.85rem;
+    }
 }

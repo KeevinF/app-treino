@@ -115,7 +115,8 @@ button {
 .btn-secondary {
     background-color: transparent;
     color: #00d4ff;
-    border: 1px solid #00d4ff; 
+    border: 1px solid #00d4ff;
+}
 
 .btn-secondary:hover {
     background-color: #f0f8ff;
@@ -132,5 +133,57 @@ button {
     .login-visual {
         display: none;
         /* Esconde a imagem no celular para focar no login */
+    }
+
+    .login-container {
+        flex-direction: column;
+    }
+
+    .login-form-section {
+        flex: 1;
+    }
+
+    .form-wrapper {
+        max-width: 100%;
+        padding: 30px 20px;
+    }
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 480px) {
+    .form-wrapper {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 15px;
+    }
+
+    .logo img {
+        width: 80px;
+    }
+
+    .logo h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    input {
+        padding: 12px;
+        margin-bottom: 12px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .forgot-password {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .terms {
+        margin-top: 20px;
+        font-size: 11px;
     }
 }

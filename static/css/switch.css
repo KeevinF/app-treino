@@ -6,13 +6,13 @@
     z-index: 800;
     display: flex;
     align-items: center;
-    
+
     margin-right: 20px;
 }
 
 .theme-switch input {
     display: none !important;
-    
+
     /* Esconde o quadradinho do checkbox */
 }
 
@@ -56,3 +56,49 @@ input:checked+.slider {
 
 /* Botao para logout */
 
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+    .theme-switch-wrapper {
+        margin-right: 10px;
+    }
+
+    .slider {
+        width: 45px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .slider:before {
+        height: 18px;
+        width: 18px;
+    }
+
+    input:checked+.slider:before {
+        transform: translateX(21px);
+    }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+    .theme-switch-wrapper {
+        margin-right: 8px;
+    }
+
+    .slider {
+        width: 40px;
+        height: 22px;
+        font-size: 10px;
+        padding: 0 3px;
+    }
+
+    .slider:before {
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+    }
+
+    input:checked+.slider:before {
+        transform: translateX(18px);
+    }
+}
