@@ -1,146 +1,119 @@
-<!DOCTYPE html>
-<html lang="pt-br" data-theme="light">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Treino - Premium</title>
+{% block title %}App Treino - Premium{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block protection_script %}
+<script>
+    // Proteção de rota: Verifica se o usuário está logado antes de carregar a página
+    if (!localStorage.getItem('access_token')) {
+        window.location.href = '/';
+    }
+</script>
+{% endblock %}
 
-    <script>
-        // Proteção de rota: Verifica se o usuário está logado antes de carregar a página
-        if (!localStorage.getItem('access_token')) {
-            window.location.href = '/';
-        }
-    </script>
-</head>
+{% block content %}
 
-<body>
+<header class="main-header">
 
-    <nav class="top-nav">
-        <div class="nav-container">
-            <span class="team-name" id="personal-name">
-                Team&nbsp;<span id="personal-actual-name">Rocksteer</span>
-            </span>
 
-            <div class="nav-controls">
-                <div class="theme-switch-wrapper">
-                    <label class="theme-switch" for="checkbox">
-                        <input type="checkbox" id="checkbox" onclick="toggleTheme()" />
-                        <div class="slider">
-                            <span class="icon-sun">☀️</span>
-                            <span class="icon-moon">🌙</span>
-                        </div>
-                    </label>
-                </div>
+    <div class="header-content">
+        <h1 id="welcome-message">Olá, <span id="student-name">Kevin</span>!</h1>
+    </div>
 
-                <button type="button" id="logout-btn" class="btn-logout">Sair</button>
-            </div>
+    <div class="personal-silhouette">
+        <img id="img-personal" src="{{ url_for('static', filename='img/59d6288f3752880e93e16ea2.png') }}"
+            alt="Personal Trainer">
+    </div>
+</header>
+
+
+
+<div id="calendar" class="calendar-horizontal"></div>
+
+<main class="grid-container">
+    <button class="card" onclick="window.location.href='{{ url_for('treinos') }}'">
+        <div class="icon-red">
+            <img src="{{ url_for('static', filename='img/treino.png') }}" alt="Ícone Treinos">
         </div>
-    </nav>
+        <span>Treinos</span>
+    </button>
 
-    <header class="main-header">
-
-        
-        <div class="header-content">
-            <h1 id="welcome-message">Olá, <span id="student-name">Kevin</span>!</h1>
+    <button class="card" onclick="window.location.href='{{ url_for('cardio') }}'">
+        <div class="icon-red">
+            <img src="{{ url_for('static', filename='img/cardio.svg') }}" alt="Ícone Cardio">
         </div>
+        <span>Cardio</span>
+    </button>
 
-        <div class="personal-silhouette">
-            <img id="img-personal" src="{{ url_for('static', filename='img/59d6288f3752880e93e16ea2.png') }}"
-                alt="Personal Trainer">
+    <button class="card" onclick="window.location.href='{{ url_for('avaliacoes') }}'">
+        <div class="icon-red">
+            <img src="{{ url_for('static', filename='img/avaliação.svg') }}" alt="Ícone Avaliações">
         </div>
-    </header>
+        <span>Avaliações</span>
+    </button>
 
+    <button class="card" onclick="window.location.href='{{ url_for('dieta') }}'">
+        <div class="icon-red">
+            <img src="{{ url_for('static', filename='img/dieta.png') }}" alt="Ícone Dieta">
+        </div>
+        <span>Dieta</span>
+    </button>
 
+    <button class="card" onclick="window.location.href='{{ url_for('arquivos') }}'">
+        <div class="icon-red">
+            <img src="{{ url_for('static', filename='img/arquivos.svg') }}" alt="Ícone Arquivos">
+        </div>
+        <span>Arquivos</span>
+    </button>
 
-    <div id="calendar" class="calendar-horizontal"></div>
+    <button class="card" onclick="window.location.href='{{ url_for('fatura') }}'">
+        <div class="icon-red">
+            <img src="{{ url_for('static', filename='img/fatura.svg') }}" alt="Ícone Fatura">
+        </div>
+        <span>Fatura</span>
+    </button>
+</main>
+<div class="circular-menu" id="circularMenu">
+    <button class="floating-btn" onclick="toggleMenu()">
+        <span id="menuIcon">+</span>
+    </button>
 
-    <main class="grid-container">
-        <button class="card" onclick="window.location.href='{{ url_for('treinos') }}'">
-            <div class="icon-red">
-                <img src="{{ url_for('static', filename='img/treino.png') }}" alt="Ícone Treinos">
-            </div>
-            <span>Treinos</span>
-        </button>
+    <menu class="items-wrapper">
+        <a href="/treinos" class="menu-item"><img src="../static/img/treino.png"></a>
+        <a href="/dieta" class="menu-item"><img src="../static/img/dieta.png"></a>
+        <a href="/cardio" class="menu-item"><img src="../static/img/cardio.svg"></a>
+        <a href="/avaliacoes" class="menu-item"><img src="../static/img/avaliação.svg"></a>
+        <a href="/arquivos" class="menu-item"><img src="../static/img/arquivos.svg"></a>
+        <a href="/fatura" class="menu-item"><img src="../static/img/fatura.svg"></a>
 
-        <button class="card" onclick="window.location.href='{{ url_for('cardio') }}'">
-            <div class="icon-red">
-                <img src="{{ url_for('static', filename='img/cardio.svg') }}" alt="Ícone Cardio">
-            </div>
-            <span>Cardio</span>
-        </button>
+        {% endblock %}
 
-        <button class="card" onclick="window.location.href='{{ url_for('avaliacoes') }}'">
-            <div class="icon-red">
-                <img src="{{ url_for('static', filename='img/avaliação.svg') }}" alt="Ícone Avaliações">
-            </div>
-            <span>Avaliações</span>
-        </button>
+        {% block extra_js %}
+        <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
 
-        <button class="card" onclick="window.location.href='{{ url_for('dieta') }}'">
-            <div class="icon-red">
-                <img src="{{ url_for('static', filename='img/dieta.png') }}" alt="Ícone Dieta">
-            </div>
-            <span>Dieta</span>
-        </button>
+        <script>
+            // Função auxiliar para requisições autenticadas (caso precise usar no futuro)
+            async function authFetch(url, options = {}) {
+                const token = localStorage.getItem('access_token');
+                const headers = {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                };
 
-        <button class="card" onclick="window.location.href='{{ url_for('arquivos') }}'">
-            <div class="icon-red">
-                <img src="{{ url_for('static', filename='img/arquivos.svg') }}" alt="Ícone Arquivos">
-            </div>
-            <span>Arquivos</span>
-        </button>
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
 
-        <button class="card" onclick="window.location.href='{{ url_for('fatura') }}'">
-            <div class="icon-red">
-                <img src="{{ url_for('static', filename='img/fatura.svg') }}" alt="Ícone Fatura">
-            </div>
-            <span>Fatura</span>
-        </button>
-    </main>
-    <div class="circular-menu" id="circularMenu">
-        <button class="floating-btn" onclick="toggleMenu()">
-            <span id="menuIcon">+</span>
-        </button>
-    
-        <menu class="items-wrapper">
-            <a href="/treinos" class="menu-item"><img src="../static/img/treino.png"></a>
-            <a href="/dieta" class="menu-item"><img src="../static/img/dieta.png"></a>
-            <a href="/cardio" class="menu-item"><img src="../static/img/cardio.svg"></a>
-            <a href="/avaliacoes" class="menu-item"><img src="../static/img/avaliação.svg"></a>
-            <a href="/arquivos" class="menu-item"><img src="../static/img/arquivos.svg"></a>
-            <a href="/fatura" class="menu-item"><img src="../static/img/fatura.svg"></a>
-
-    <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
-    <script>
-        // Função auxiliar para requisições autenticadas (caso precise usar no futuro)
-        async function authFetch(url, options = {}) {
-            const token = localStorage.getItem('access_token');
-            const headers = {
-                'Content-Type': 'application/json',
-                ...options.headers
-            };
-
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
+                return fetch(url, {
+                    ...options,
+                    headers
+                });
             }
 
-            return fetch(url, {
-                ...options,
-                headers
+            // Funcionalidade de Logout
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('access_token');
+                window.location.href = '/';
             });
-        }
-
-        // Funcionalidade de Logout
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.removeItem('access_token');
-            window.location.href = '/';
-        });
-    </script>
-</body>
-
-</html>
+        </script>
+        {% endblock %}

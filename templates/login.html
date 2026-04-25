@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    
+
     <div class="login-container">
 
         <div class="login-visual">
@@ -21,6 +21,19 @@
         </div>
 
         <div class="login-form-section">
+            <!-- Switch de Tema -->
+            <div style="position: absolute; top: 20px; right: 30px; z-index: 10;">
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" onclick="toggleTheme()" />
+                        <div class="slider">
+                            <span class="icon-sun">☀️</span>
+                            <span class="icon-moon">🌙</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
             <div class="form-wrapper">
                 <div class="logo">
                     <img src="./static/img/raio.png" alt="Logo">
@@ -47,6 +60,27 @@
     </div>
 
     <script>
+        function toggleTheme() {
+            const html = document.documentElement; // Pega a tag <html>
+            const currentTheme = html.getAttribute('data-theme');
+
+            // Se estiver claro, vira escuro. Se estiver escuro, vira claro.
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', newTheme);
+
+            // Salva a escolha para quando você der F5
+            localStorage.setItem('theme', newTheme);
+
+            console.log("Tema alterado para: " + newTheme);
+        }
+
+        // Aplica o tema salvo ao abrir o site
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        });
+
         // Função auxiliar para fazer solicitações autenticadas
         async function authFetch(url, options = {}) {
             const token = localStorage.getItem('access_token');
@@ -54,11 +88,11 @@
                 'Content-Type': 'application/json',
                 ...options.headers
             };
-            
+
             if (token) {
                 headers['Authorization'] = `Bearer ${token}`;
             }
-            
+
             return fetch(url, {
                 ...options,
                 headers
@@ -67,10 +101,10 @@
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const email = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
+
             try {
                 const response = await fetch('/logar', {
                     method: 'POST',
@@ -79,9 +113,9 @@
                     },
                     body: JSON.stringify({ username: email, password })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (response.ok) {
                     localStorage.setItem('access_token', data.access_token);
                     // Testa se o token é válido antes de redirecionar

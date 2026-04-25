@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardio</title>
-</head>
-<body>
-    <h1>Cardio</h1>
-    <img src="{{ url_for('static', filename='img/teste.png') }}" alt="Cardio Image" style="width:100%;height:auto;">
-</body>
-</html>
+{% extends "base.html" %}
 
+{% block title %}Cardio - App Treino{% endblock %}
+
+{% block protection_script %}
+<script>
+    if (!localStorage.getItem('access_token')) {
+        window.location.href = '/';
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>Cardio</h1>
+<img src="{{ url_for('static', filename='img/teste.png') }}" alt="Cardio Image" style="width:100%;height:auto;">
+{% endblock %}

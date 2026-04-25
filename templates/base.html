@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}App Treino - Premium{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/switch.css') }}">
+    {% block extra_css %}{% endblock %}
+
+    {% block protection_script %}{% endblock %}
+</head>
+
+<body>
+    <!-- Nav com o switch de tema -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <span class="team-name" id="personal-name">
+                Team&nbsp;<span id="personal-actual-name">Rocksteer</span>
+            </span>
+
+            <div class="nav-controls">
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" onclick="toggleTheme()" />
+                        <div class="slider">
+                            <span class="icon-sun">☀️</span>
+                            <span class="icon-moon">🌙</span>
+                        </div>
+                    </label>
+                </div>
+
+                <button type="button" id="logout-btn" class="btn-logout">Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo específico de cada página -->
+    {% block content %}{% endblock %}
+
+    <!-- Scripts comuns -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
