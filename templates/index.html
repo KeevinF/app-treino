@@ -8,11 +8,19 @@
     <title>App Treino - Premium</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <script>
+        // Check if user is logged in
+        if (!localStorage.getItem('access_token')) {
+            window.location.href = '/';
+        }
+    </script>
 </head>
 
 <body>
 
     <div class="theme-switch-wrapper">
+        <button id="logout-btn" class="logout-button">Sair</button>
         <label class="theme-switch">
             <input type="checkbox" id="checkbox" onclick="toggleTheme()">
             <div class="slider">
@@ -22,7 +30,7 @@
         </label>
     </div>
 
-    <div id="test-panel">
+    <!-- <div id="test-panel">
         <div class="panel-group">
         <input type="file" id="upload-foto" accept="image/*" class="input-hidden">
         <label for="upload-foto" class="custom-file-upload">
@@ -36,7 +44,9 @@
             <input type="text" id="input-personal" placeholder="Nome do Personal">
             <button onclick="testarNomes()">Atualizar Nomes</button>
         </div>
-    </div>
+    </div> -->
+
+    
 
     <header class="main-header">
         <div class="header-content">
@@ -105,6 +115,32 @@
 
     <script src="../static/js/calendar.js"></script>
     <script src="../static/js/main.js"></script>
+
+    <script>
+        // Função auxiliar para fazer requisições de API autenticadas
+        async function authFetch(url, options = {}) {
+            const token = localStorage.getItem('access_token');
+            const headers = {
+                'Content-Type': 'application/json',
+                ...options.headers
+            };
+            
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            return fetch(url, {
+                ...options,
+                headers
+            });
+        }
+
+        // Logout funcionalidade
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('access_token');
+            window.location.href = '/';
+        });
+    </script>
 </body>
 
 </html>

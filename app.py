@@ -1,7 +1,10 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, jsonify, request
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 app = Flask (__name__)
-app.secret_key = 'dev'
+app.config["JWT_SECRET_KEY"] = "super-secret" 
+jwt = JWTManager(app)
+
 
 @app.route('/')
 def login():
@@ -9,9 +12,15 @@ def login():
 
 @app.route('/logar', methods=['POST'])
 def logar():
-    return redirect(url_for('index'))
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
+    if username != "teste@teste.com" or password != "teste":
+        return jsonify({"msg": "Usuario ou senha incorreta"}), 401
+    access_token = create_access_token(identity=username)
+    return jsonify(access_token=access_token)
+    # return redirect(url_for('index'))
 
-@app.route('/index')
+@app.route('/index', methods=['GET'])
 def index():
     return render_template('index.html')
 

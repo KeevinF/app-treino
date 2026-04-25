@@ -16,7 +16,7 @@
         <div class="login-visual">
             <img src="./static/img/login.jpeg" alt="Login-Image">
             <div class="visual-footer">
-                <!-- <p>Use o app também no seu celular</p> -->
+                <!-- <p> Use o app também no seu celular</p> -->
             </div>
         </div>
 
@@ -27,16 +27,16 @@
                     <h2>Aluno</h2>
                 </div>
 
-                <form action="/logar" method="POST">
-                    <input type="email" name="email" placeholder="E-mail" >
+                <form id="login-form">
+                    <input type="email" name="email" placeholder="E-mail" id="username" required>
 
                     <div class="password-group">
-                        <input type="password" name="password" placeholder="Senha" >
+                        <input type="password" name="password" placeholder="Senha" id="password" required>
                     </div>
 
                     <a href="#" class="forgot-password">Esqueceu a senha? Clique aqui</a>
 
-                    <button type="button" onclick="window.location.href='{{ url_for('index') }}'" class="btn-primary">Entrar</button>
+                    <button type="submit" class="btn-primary">Entrar</button>
                     <button type="button" class="btn-secondary">Cadastrar</button>
                 </form>
 
@@ -45,6 +45,61 @@
         </div>
 
     </div>
+
+    <script>
+        // Função auxiliar para fazer solicitações autenticadas
+        async function authFetch(url, options = {}) {
+            const token = localStorage.getItem('access_token');
+            const headers = {
+                'Content-Type': 'application/json',
+                ...options.headers
+            };
+            
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            return fetch(url, {
+                ...options,
+                headers
+            });
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/logar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('access_token', data.access_token);
+                    // Testa se o token é válido antes de redirecionar
+                    const testResponse = await authFetch('/index');
+                    if (testResponse.ok) {
+                        window.location.href = '/index';
+                    } else {
+                        alert('Token inválido');
+                    }
+                } else {
+                    alert(data.msg);
+                }
+            } catch (error) {
+                alert('Erro ao conectar ao servidor');
+                console.error(error);
+            }
+        });
+    </script>
 </body>
 
 </html>
