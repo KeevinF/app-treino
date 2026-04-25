@@ -49,4 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function toggleMenu() {
     document.getElementById('circularMenu').classList.toggle('active');
+    document.querySelector('main').style.opacity = document.getElementById('circularMenu').classList.contains('active') ? '0.2' : '1';
 }
+

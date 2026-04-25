@@ -1,18 +1,18 @@
 :root {
     --bg-color: #030303ea;
     --card-bg: #0c0c0cf6;
-    --text-color: #ffffff;
+    --text-color: #83c5be;
     --primary-red: #d0d4d4;
     --border-color: #edf6f9;
     --nav-bg: #000000e6;
-    --header-gradient: linear-gradient(180deg, #006d77 0%, #edf6f9 100%);
+    --header-gradient: linear-gradient(180deg, #004e5d 0%, #171717 100%);
 }
 
 [data-theme="light"] {
     --bg-color: #f4f7f6;
     --card-bg: #b7babba2;
     --text-color: #1a1a1a;
-    --primary-red: #83c5be;
+    --primary-red: #89ddd5;
     --border-color: rgba(0, 0, 0, 0.05);
     --nav-bg: rgba(255, 255, 255, 0.9);
     --header-gradient: linear-gradient(180deg, #006d77 0%, #edf6f9 100%);
@@ -63,9 +63,9 @@ body {
     display: none !important;
 }
 
-/ Estiliza o Label para ele parecer um botão real /
-.custom-file-upload {
-    background-color: #f0f0f0; /* Cor de fundo do botão */
+/ Estiliza o Label para ele parecer um botão real / .custom-file-upload {
+    background-color: #f0f0f0;
+    /* Cor de fundo do botão */
     color: #333;
     padding: 8px 12px;
     border-radius: 4px;
@@ -80,8 +80,7 @@ body {
     background-color: #e0e0e0;
 }
 
-/ Estilo do botão de atualizar que fica ao lado */
-.btn-atualizar {
+/ Estilo do botão de atualizar que fica ao lado */ .btn-atualizar {
     background-color: #b30000;
     color: white;
     padding: 8px 12px;
@@ -90,6 +89,7 @@ body {
     cursor: pointer;
     font-weight: bold;
 }
+
 @media (max-width: 480px) {
     .panel-group {
         flex-direction: column;
